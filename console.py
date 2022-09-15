@@ -130,7 +130,12 @@ class HBNBCommand(cmd.Cmd):
         else:
             for argument in arg[1:]:
                 # get the argument we want from string
-                regex = r'(\w+)=(.+)'
+                regex = r'^(\w+)=(.+)$'
+
+                # check if argument has the pattern
+                if not re.search(regex, argument):
+                    continue
+
                 arg_list = re.findall(regex, argument)
                 key = arg_list[0][0]
 
