@@ -146,10 +146,15 @@ class HBNBCommand(cmd.Cmd):
                     # replace underscore with space
                     if '_' in new_val:
                         new_val = new_val.replace('_', ' ')
-                elif '.' in new_val:
-                    new_val = float(new_val)
                 else:
-                    new_val = int(new_val)
+                    # try to eval value and catch exception if not int or float
+                    try:
+                        new_val = eval(new_val)
+                    except Exception:
+                        pass
+
+                    if type(new_val) not in [int, float]:
+                        continue
 
                 new_instance.__dict__[key] = new_val
 
