@@ -7,6 +7,9 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from models.city import City
 from models.state import State
 from models.user import User
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 
 
 class DBStorage:
@@ -15,7 +18,14 @@ class DBStorage:
     """
     __engine = None
     __session = None
-    classes = [City, State, User]
+    classes = [
+        City,
+        State,
+        User,
+        Review,
+        Place,
+        Amenity
+    ]
 
     def __init__(self) -> None:
         """ Constructor Function """
