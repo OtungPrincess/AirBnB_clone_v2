@@ -2,25 +2,23 @@
 """ This is the place class"""
 import models
 from models.base_model import BaseModel, Base
-from models.amenity import Amenity
-from models.review import Review
 from os import getenv
 from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
 
-if getenv("HBNB_TYPE_STORAGE") == "db":
-    place_amenity = Table('place_amenity', Base.metadata,
-                          Column('place_id', String(60),
-                                 ForeignKey('places.id'),
-                                 nullable=False,
-                                 primary_key=True),
-                          Column('amenity_id', String(60),
-                                 ForeignKey('amenities.id'),
-                                 nullable=False,
-                                 primary_key=True))
+place_amenity = Table('place_amenity', Base.metadata,
+                      Column('place_id', String(60),
+                             ForeignKey('places.id'),
+                             nullable=False,
+                             primary_key=True),
+                      Column('amenity_id', String(60),
+                             ForeignKey('amenities.id'),
+                             nullable=False,
+                             primary_key=True))
 
 
 class Place(BaseModel, Base):
+
     """This is the class for Place
     Attributes:
         city_id: city id
@@ -66,7 +64,7 @@ class Place(BaseModel, Base):
         def reviews(self):
             """getter attribute"""
             review_list = []
-            all_reviews = models.storage.all(Review)
+            all_reviews = models.storage.all(models.Review)
             for review in all_reviews.values():
                 if review.place_id == self.id:
                     review_list.append(review)
@@ -79,5 +77,5 @@ class Place(BaseModel, Base):
 
         @amenities.setter
         def amenities(self, obj=None):
-            if isinstance(obj, Amenity):
+            if isinstance(obj, models.Amenity):
                 self.amenity_ids.append(obj)
