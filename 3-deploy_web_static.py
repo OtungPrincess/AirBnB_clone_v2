@@ -11,6 +11,7 @@ from datetime import datetime
 env.user = 'ubuntu'
 env.hosts = ['44.210.77.98', '44.211.31.180']
 
+
 def do_pack():
     """
         compresses web_static files into one file
@@ -22,6 +23,7 @@ def do_pack():
     if captured.failed:
         return None
     return tar_path
+
 
 def do_deploy(archive_path):
     """
@@ -50,6 +52,7 @@ def do_deploy(archive_path):
         return True
     except Exception:
         return False
+
 
 def deploy():
     """
