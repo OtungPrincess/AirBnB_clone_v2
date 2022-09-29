@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
-# This script sets up your web servers for the deployment of web_static
-apt-get update
+# Configires Nginx server with deploymeny folders
+apt-get update -y
 apt-get install -y nginx
-# recursively create directories
 mkdir -p /data/web_static/releases/ /data/web_static/shared/ /data/web_static/releases/test/
-echo "created the test file" > /data/web_static/releases/test/index.html
+echo "<marquee> Let's get it </marquee>" > /data/web_static/releases/test/index.html
 ln -sf /data/web_static/releases/test/ /data/web_static/current
 chown -R ubuntu:ubuntu /data/
-sed -i "/server_name _;/a \\\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}" /etc/nginx/sites-available/default
+# Write after the error declaration
+sed -i "/error_page 404 \/404.html;/a \\\n\tlocation /hbnb_static { \
+        \n\t\talias /data/web_static/current/; \
+        \n\t\tautoindex off; \
+        \n\t}" /etc/nginx/sites-available/default
+# restart nginx
 service nginx restart
