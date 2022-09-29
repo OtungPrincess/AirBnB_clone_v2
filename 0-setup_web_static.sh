@@ -52,3 +52,4 @@ chown -R ubuntu data/
 chgrp -R ubuntu data/
 
 sed -i "/server_name _;/a \\\n\tlocation /hbnb_static {\n\t\talias data/web_static/current;\n\t}" /etc/nginx/sites-available/default
+service nginx restart
