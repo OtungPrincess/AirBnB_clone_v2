@@ -6,50 +6,13 @@ then
     sudo apt-get install -y nginx
 fi
 
-if [[ ! -d data ]]
-then
-    mkdir data
-fi
+# recursively create directories
+mkdir -p /data/web_static/releases/ /data/web_static/shared/ /data/web_static/releases/test/
+echo "created the test file" > /data/web_static/releases/test/index.html
 
-if [[ ! -d data/web_static ]]
-then
-    mkdir data/web_static
-fi
+ln -sf data/web_static/releases/test/ /data/web_static/current
 
-if [[ ! -d data/web_static/releases ]]
-then
-    mkdir data/web_static/releases
-fi
+chown -R ubuntu:ubuntu /data/
 
-if [[ ! -d data/web_static/shared ]]
-then
-    mkdir data/web_static/shared
-fi
-
-if [[ ! -d data/web_static/releases/test ]]
-then
-    mkdir data/web_static/releases/test
-fi
-
-echo "created the test file" > data/web_static/releases/test/index.html
-
-
-symlink=data/web_static/current
-if [[ -L $symlink ]]
-then
-    rm $symlink
-fi
-
-ln -s data/web_static/releases/test/ $symlink
-
-# returns an id if user is present
-if ! id -u ubuntu &>/dev/null
-then
-    useradd ubuntu
-fi
-
-chown -R ubuntu data/
-chgrp -R ubuntu data/
-
-sed -i "/server_name _;/a \\\n\tlocation /hbnb_static {\n\t\talias data/web_static/current;\n\t}" /etc/nginx/sites-available/default
+sed -i "/server_name _;/a \\\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}" /etc/nginx/sites-available/default
 service nginx restart
