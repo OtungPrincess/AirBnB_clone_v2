@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 # This script sets up your web servers for the deployment of web_static
-if ! type nginx 2>/dev/null
-then
-    sudo apt-get update
-    sudo apt-get install -y nginx
-fi
+
+sudo apt-get update
+sudo apt-get install -y nginx
+
 
 # recursively create directories
 mkdir -p /data/web_static/releases/ /data/web_static/shared/ /data/web_static/releases/test/
