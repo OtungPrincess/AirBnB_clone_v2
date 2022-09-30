@@ -9,7 +9,7 @@ import re
 
 
 env.user = 'ubuntu'
-env.hosts = ['44.210.77.98', '44.211.31.180']
+env.hosts = ['34.239.163.194', '3.85.222.35']
 
 
 def do_deploy(archive_path):
