@@ -71,7 +71,8 @@ class DBStorage:
             Args:
                 obj: object to be added
         """
-        self.__session.add(obj)
+        if obj:
+            self.__session.add(obj)
 
     def save(self):
         """ Saves the transaction """
@@ -97,4 +98,3 @@ class DBStorage:
     def close(self):
         """ removes the private session """
         self.__session.close()
-        self.reload()
