@@ -22,8 +22,8 @@ class State(BaseModel, Base):
             """ Getter attribute """
             city_objs = models.storage.all(City)
             relation_list = []
-            for val in city_objs.values():
-                if val.state_id == State.id:
-                    relation_list.append(val.state_id)
+            for city in city_objs.values():
+                if city.state_id == self.id:
+                    relation_list.append(city)
 
             return relation_list
