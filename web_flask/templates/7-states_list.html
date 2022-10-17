@@ -9,9 +9,9 @@
 <BODY>
     <H1>STATES</H1>
     <UL>
-        {% for state in all_objs|sort(attribute='name') %}
-            <LI> {{ state.id }}: <B>{{ state.name }}</B>
-        {% endfor %}
+        {%- for state in all_objs|sort(attribute='name') %}
+            <LI>{{ state.id }}: <B>{{ state.name }}</B>
+        {%- endfor %}
     </UL>
 </BODY>
 </HTML>
